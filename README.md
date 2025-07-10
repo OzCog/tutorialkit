@@ -27,6 +27,10 @@
 
 Read our documentation on [tutorialkit.dev](https://tutorialkit.dev/guides/about)
 
+## Cognitive Architecture
+
+For the visionary distributed intelligence meta-architecture and technical flowcharts, see [COGNITIVE_ARCHITECTURE.md](./COGNITIVE_ARCHITECTURE.md).
+
 ## Development Setup
 
 ### Prerequisites
