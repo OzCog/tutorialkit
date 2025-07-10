@@ -3,6 +3,7 @@ import type { ChapterSchema, CustomSchema, LessonSchema, PartSchema } from '../s
 import type { MetaTagsSchema } from '../schemas/metatags.js';
 
 export type * from './nav.js';
+export type * from './cognitive-tensor.js';
 
 export type FileDescriptor = { path: string; type: 'file' | 'folder' };
 export type Files = Record<string, string | Uint8Array>;
