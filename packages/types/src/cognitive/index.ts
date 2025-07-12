@@ -16,6 +16,10 @@ export * from './ecan-scheduler.js';
 export * from './mesh-topology.js';
 export * from './attention-visualizer.js';
 export * from './phase2-integration.js';
+// Phase 3: Neural-Symbolic Synthesis via Custom GGML Kernels
+export * from './ggml-kernels.js';
+export * from './neural-symbolic-synthesis.js';
+export * from './tensor-profiling.js';
 
 // Re-export key types from entities
 export type {
@@ -93,3 +97,41 @@ export type {
   Phase2SystemState,
   TaskProcessingResult
 } from './phase2-integration.js';
+
+// Phase 3: Neural-Symbolic Synthesis types
+export type {
+  GGMLOperation,
+  GGMLKernel,
+  SymbolicTensorOperation,
+  NeuralInferenceHook,
+  KernelRegistry,
+  PerformanceMetrics,
+  OptimizationResult
+} from './ggml-kernels.js';
+
+export type {
+  NeuralSymbolicPipeline,
+  SymbolicRepresentation,
+  NeuralRepresentation,
+  SynthesisResult,
+  HybridRepresentation,
+  BridgeMapping,
+  BenchmarkData,
+  TestCase,
+  ValidationCriteria,
+  BenchmarkResult,
+  TestCaseResult
+} from './neural-symbolic-synthesis.js';
+
+export type {
+  TensorOperationProfile,
+  ProfilingSession,
+  AggregateMetrics,
+  OptimizationRecommendation,
+  RealTimeMonitor,
+  Alert,
+  PerformanceThresholds,
+  BenchmarkSuite,
+  BenchmarkTestCase,
+  RegressionTestResult
+} from './tensor-profiling.js';
