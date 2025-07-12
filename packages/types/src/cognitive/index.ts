@@ -21,6 +21,13 @@ export * from './ggml-kernels.js';
 export * from './neural-symbolic-synthesis.js';
 export * from './tensor-profiling.js';
 
+// Phase 4: Distributed Cognitive Mesh API & Embodiment Layer
+export * from './phase4-cognitive-api.js';
+export * from './phase4-websocket-interface.js';
+export * from './phase4-embodiment-interfaces.js';
+export * from './phase4-testing-framework.js';
+export * from './phase4-integration.js';
+
 // Re-export key types from entities
 export type {
   CognitiveNode,
@@ -135,3 +142,49 @@ export type {
   BenchmarkTestCase,
   RegressionTestResult
 } from './tensor-profiling.js';
+
+// Phase 4: Distributed Cognitive Mesh API & Embodiment Layer types
+export type {
+  CognitiveOperationRequest,
+  CognitiveOperationResponse,
+  DistributedStateSnapshot,
+  TaskOrchestrationConfig
+} from './phase4-cognitive-api.js';
+
+export type {
+  WebSocketMessage,
+  CognitiveWebSocketRequest,
+  CognitiveWebSocketResponse,
+  StateUpdateEvent,
+  RealTimeMetrics,
+  CognitiveWebSocketConnection
+} from './phase4-websocket-interface.js';
+
+export type {
+  EmbodimentVector3,
+  EmbodimentQuaternion,
+  EmbodimentTransform,
+  SensorData,
+  ActuatorCommand,
+  EmbodimentState,
+  Unity3DMessage,
+  Unity3DGameObject,
+  Unity3DCognitiveAgent,
+  ROSNode,
+  ROSMessage,
+  ROSServiceRequest,
+  WebAgent,
+  WebAgentInteraction
+} from './phase4-embodiment-interfaces.js';
+
+export type {
+  TestMetrics,
+  LoadTestConfig,
+  EmbodimentTestScenario
+} from './phase4-testing-framework.js';
+
+export type {
+  Phase4Configuration,
+  EmbodimentFlowchartNode,
+  RecursiveEmbodimentPath
+} from './phase4-integration.js';
