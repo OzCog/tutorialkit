@@ -12,6 +12,10 @@ export * from './tensor-network.js';
 export * from './integration.js';
 export * from './scheme-adapter.js';
 export * from './tensor-utils.js';
+export * from './ecan-scheduler.js';
+export * from './mesh-topology.js';
+export * from './attention-visualizer.js';
+export * from './phase2-integration.js';
 
 // Re-export key types from entities
 export type {
@@ -45,3 +49,47 @@ export type {
   SerializedTensor,
   TensorPrimeFactorization
 } from './tensor-utils.js';
+
+// ECAN Scheduler types
+export type {
+  ECANAttentionValue,
+  ECANConfig,
+  ResourceAllocation,
+  TaskSchedulingResult,
+  ScheduledTask,
+  ResourceRequirements
+} from './ecan-scheduler.js';
+
+// Mesh Topology types
+export type {
+  MeshNode,
+  MeshTopology,
+  LoadBalancingStrategy,
+  AttentionFlowMetrics,
+  MeshPerformanceMetrics,
+  ResourceUtilization,
+  LoadBalancer,
+  RebalancingResult
+} from './mesh-topology.js';
+
+// Attention Visualizer types
+export type {
+  AttentionFlowVisualization,
+  VisualizationMetadata,
+  FlowAnalysisResult,
+  CriticalPath,
+  FlowBottleneck,
+  AttentionCluster,
+  EfficiencyMetrics,
+  FlowRecommendation,
+  ResourceAllocationChart,
+  ChartDataPoint,
+  ChartConfig
+} from './attention-visualizer.js';
+
+// Phase 2 Integration types
+export type {
+  Phase2SystemConfig,
+  Phase2SystemState,
+  TaskProcessingResult
+} from './phase2-integration.js';
