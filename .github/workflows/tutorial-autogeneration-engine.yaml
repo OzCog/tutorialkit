@@ -1,6 +1,6 @@
 name: Tutorial Autogeneration Engine - Create Phase Issues
 
-on:
+"on":
   workflow_dispatch:
     inputs:
       create_all_phases:
