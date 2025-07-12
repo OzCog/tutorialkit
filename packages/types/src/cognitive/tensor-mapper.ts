@@ -102,47 +102,69 @@ export class TutorialKitTensorKernelMapper implements TensorKernelMapper {
   }
   
   private calculateLessonShape(node: CognitiveNode): number[] {
-    const inputDim = node.arity;
-    const outputDim = Math.max(1, Math.floor(node.complexity));
-    const stateDim = node.connections.length;
-    const adaptationDim = this.calculateAdaptationChannels(node);
+    // Enhanced 5-dimensional cognitive tensor format: [modality, depth, context, salience, autonomy_index]
+    const modality = this.calculateModalityDimension(node);
+    const depth = this.calculateDepthDimension(node);
+    const context = this.calculateContextDimension(node);
+    const salience = this.calculateSalienceDimension(node);
+    const autonomyIndex = this.calculateAutonomyIndexDimension(node);
     
-    return [inputDim, outputDim, stateDim, adaptationDim];
+    return [modality, depth, context, salience, autonomyIndex];
   }
   
   private calculateChapterShape(node: CognitiveNode): number[] {
-    const inputDim = node.arity;
-    const outputDim = Math.max(1, Math.floor(node.complexity / 2));
-    const contextDim = Math.max(1, node.connections.length);
+    // Enhanced 5-dimensional cognitive tensor format for chapters
+    const modality = this.calculateModalityDimension(node);
+    const depth = Math.max(1, Math.floor(this.calculateDepthDimension(node) * 0.8)); // Reduced depth for chapters
+    const context = this.calculateContextDimension(node);
+    const salience = this.calculateSalienceDimension(node);
+    const autonomyIndex = this.calculateAutonomyIndexDimension(node);
     
-    return [inputDim, outputDim, contextDim];
+    return [modality, depth, context, salience, autonomyIndex];
   }
   
   private calculatePartShape(node: CognitiveNode): number[] {
-    const inputDim = node.arity;
-    const outputDim = Math.max(1, Math.floor(node.complexity / 3));
+    // Enhanced 5-dimensional cognitive tensor format for parts
+    const modality = this.calculateModalityDimension(node);
+    const depth = Math.max(1, Math.floor(this.calculateDepthDimension(node) * 0.6)); // Reduced depth for parts
+    const context = this.calculateContextDimension(node);
+    const salience = this.calculateSalienceDimension(node);
+    const autonomyIndex = this.calculateAutonomyIndexDimension(node);
     
-    return [inputDim, outputDim];
+    return [modality, depth, context, salience, autonomyIndex];
   }
   
   private calculateModuleShape(node: CognitiveNode): number[] {
-    const dimensions = Math.max(2, Math.floor(Math.sqrt(node.arity * node.complexity)));
-    return [dimensions, dimensions];
+    // Enhanced 5-dimensional cognitive tensor format for modules
+    const modality = this.calculateModalityDimension(node);
+    const depth = this.calculateDepthDimension(node);
+    const context = this.calculateContextDimension(node);
+    const salience = this.calculateSalienceDimension(node);
+    const autonomyIndex = this.calculateAutonomyIndexDimension(node);
+    
+    return [modality, depth, context, salience, autonomyIndex];
   }
   
   private calculateComponentShape(node: CognitiveNode): number[] {
-    const inputDim = Math.max(1, node.arity);
-    const outputDim = Math.max(1, Math.floor(node.complexity));
+    // Enhanced 5-dimensional cognitive tensor format for components
+    const modality = this.calculateModalityDimension(node);
+    const depth = this.calculateDepthDimension(node);
+    const context = this.calculateContextDimension(node);
+    const salience = this.calculateSalienceDimension(node);
+    const autonomyIndex = this.calculateAutonomyIndexDimension(node);
     
-    return [inputDim, outputDim];
+    return [modality, depth, context, salience, autonomyIndex];
   }
   
   private calculateFunctionShape(node: CognitiveNode): number[] {
-    const inputDim = node.arity;
-    const outputDim = 1;
-    const paramDim = Math.max(1, Math.floor(node.complexity));
+    // Enhanced 5-dimensional cognitive tensor format for functions
+    const modality = this.calculateModalityDimension(node);
+    const depth = this.calculateDepthDimension(node);
+    const context = this.calculateContextDimension(node);
+    const salience = this.calculateSalienceDimension(node);
+    const autonomyIndex = this.calculateAutonomyIndexDimension(node);
     
-    return [inputDim, outputDim, paramDim];
+    return [modality, depth, context, salience, autonomyIndex];
   }
   
   private calculateAdaptationChannels(node: CognitiveNode): number {
@@ -157,6 +179,194 @@ export class TutorialKitTensorKernelMapper implements TensorKernelMapper {
     channels += Math.min(4, node.connections.length);
     
     return channels;
+  }
+  
+  /**
+   * Calculate modality dimension based on node type and input characteristics
+   * Represents different modes of cognitive processing (visual, textual, interactive, etc.)
+   */
+  private calculateModalityDimension(node: CognitiveNode): number {
+    let modality = 1; // Base modality
+    
+    // Increase modality based on node type
+    switch (node.type) {
+      case 'lesson':
+        modality = 4; // Lessons can have multiple modalities (text, code, output, interaction)
+        break;
+      case 'chapter':
+        modality = 3; // Chapters have structural and content modalities
+        break;
+      case 'part':
+        modality = 2; // Parts have structural modality
+        break;
+      case 'module':
+        modality = 3; // Modules have code and documentation modalities
+        break;
+      case 'component':
+        modality = 2; // Components have code and interface modalities
+        break;
+      case 'function':
+        modality = 1; // Functions have primarily code modality
+        break;
+    }
+    
+    // Adjust based on metadata complexity
+    if (node.metadata.data) {
+      const dataKeys = Object.keys(node.metadata.data);
+      if (dataKeys.includes('mainCommand')) modality += 1; // Interactive modality
+      if (dataKeys.includes('prepareCommands')) modality += 1; // Setup modality
+      if (dataKeys.includes('focus')) modality += 1; // Focus modality
+    }
+    
+    return Math.max(1, Math.min(8, modality)); // Clamp between 1 and 8
+  }
+  
+  /**
+   * Calculate depth dimension based on complexity and hierarchical position
+   * Represents the cognitive processing depth required
+   */
+  private calculateDepthDimension(node: CognitiveNode): number {
+    let depth = Math.max(1, Math.floor(node.complexity));
+    
+    // Adjust depth based on node type hierarchy
+    switch (node.type) {
+      case 'part':
+        depth = Math.max(depth, 4); // Parts are at the top level
+        break;
+      case 'chapter':
+        depth = Math.max(depth, 3); // Chapters are mid-level
+        break;
+      case 'lesson':
+        depth = Math.max(depth, 2); // Lessons are detailed level
+        break;
+      case 'module':
+        depth = Math.max(depth, 3); // Modules are complex
+        break;
+      case 'component':
+        depth = Math.max(depth, 2); // Components are moderate
+        break;
+      case 'function':
+        depth = Math.max(depth, 1); // Functions are atomic
+        break;
+    }
+    
+    // Adjust based on connection complexity
+    depth += Math.floor(node.connections.length / 3);
+    
+    return Math.max(1, Math.min(16, depth)); // Clamp between 1 and 16
+  }
+  
+  /**
+   * Calculate context dimension based on connections and environmental factors
+   * Represents the contextual information required for processing
+   */
+  private calculateContextDimension(node: CognitiveNode): number {
+    let context = Math.max(1, node.connections.length);
+    
+    // Adjust based on node arity (input complexity)
+    context += node.arity;
+    
+    // Adjust based on metadata richness
+    if (node.metadata.data) {
+      context += Object.keys(node.metadata.data).length;
+    }
+    
+    // Add contextual factors for specific node types
+    switch (node.type) {
+      case 'lesson':
+        context += 2; // Lessons need pedagogical context
+        break;
+      case 'chapter':
+        context += 1; // Chapters need structural context
+        break;
+      case 'part':
+        context += 1; // Parts need organizational context
+        break;
+    }
+    
+    return Math.max(1, Math.min(12, context)); // Clamp between 1 and 12
+  }
+  
+  /**
+   * Calculate salience dimension based on importance and attention requirements
+   * Represents how much cognitive attention this node should receive
+   */
+  private calculateSalienceDimension(node: CognitiveNode): number {
+    let salience = Math.max(1, Math.floor(node.complexity / 2));
+    
+    // Increase salience for critical node types
+    switch (node.type) {
+      case 'lesson':
+        salience += 3; // Lessons are highly salient for learning
+        break;
+      case 'chapter':
+        salience += 2; // Chapters are important for structure
+        break;
+      case 'part':
+        salience += 1; // Parts provide organization
+        break;
+      case 'function':
+        salience += 1; // Functions are specific and important
+        break;
+    }
+    
+    // Adjust based on connections (well-connected nodes are more salient)
+    salience += Math.floor(node.connections.length / 2);
+    
+    // Adjust based on metadata indicators
+    if (node.metadata.data) {
+      const data = node.metadata.data as any;
+      if (data.mainCommand) salience += 1; // Executable content is more salient
+      if (data.focus) salience += 1; // Focused content is more salient
+    }
+    
+    return Math.max(1, Math.min(10, salience)); // Clamp between 1 and 10
+  }
+  
+  /**
+   * Calculate autonomy index based on self-sufficiency and independence
+   * Represents how autonomously this node can be processed
+   */
+  private calculateAutonomyIndexDimension(node: CognitiveNode): number {
+    let autonomy = 1; // Base autonomy
+    
+    // Decrease autonomy based on dependencies (connections)
+    autonomy += Math.max(0, 5 - node.connections.length);
+    
+    // Adjust based on node type
+    switch (node.type) {
+      case 'function':
+        autonomy += 2; // Functions are typically autonomous
+        break;
+      case 'component':
+        autonomy += 1; // Components have some autonomy
+        break;
+      case 'module':
+        autonomy += 1; // Modules are somewhat autonomous
+        break;
+      case 'lesson':
+        autonomy -= 1; // Lessons depend on context
+        break;
+      case 'chapter':
+        autonomy -= 2; // Chapters are highly dependent on structure
+        break;
+      case 'part':
+        autonomy -= 2; // Parts are organizational and dependent
+        break;
+    }
+    
+    // Adjust based on metadata self-sufficiency
+    if (node.metadata.data) {
+      const data = node.metadata.data as any;
+      if (data.prepareCommands && data.prepareCommands.length > 0) {
+        autonomy += 1; // Self-setup increases autonomy
+      }
+      if (data.mainCommand) {
+        autonomy += 1; // Self-execution increases autonomy
+      }
+    }
+    
+    return Math.max(1, Math.min(8, autonomy)); // Clamp between 1 and 8
   }
   
   private selectDataType(node: CognitiveNode): 'float32' | 'float64' | 'int32' | 'int64' {

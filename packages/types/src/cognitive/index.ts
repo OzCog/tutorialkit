@@ -10,6 +10,8 @@ export * from './tensor-mapper.js';
 export * from './grammar-engine.js';
 export * from './tensor-network.js';
 export * from './integration.js';
+export * from './scheme-adapter.js';
+export * from './tensor-utils.js';
 
 // Re-export key types from entities
 export type {
@@ -27,3 +29,19 @@ export type {
   GrammarPattern,
   AttentionWeight
 } from '../entities/cognitive-tensor.js';
+
+// Re-export new types from modules
+export type {
+  Ko6mlPrimitive,
+  SchemeExpression,
+  TranslationResult,
+  SchemeAdapter
+} from './scheme-adapter.js';
+
+export type {
+  CognitiveTensorDimensions,
+  TensorValidationResult,
+  TensorSerializationOptions,
+  SerializedTensor,
+  TensorPrimeFactorization
+} from './tensor-utils.js';
