@@ -9,8 +9,8 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { DistributedCognitiveAPI, CognitiveOperationRequest, CognitiveOperationResponse } from './phase4-cognitive-api';
 import { CognitiveWebSocketInterface, WebSocketMessage } from './phase4-websocket-interface';
 import { Unity3DEmbodimentInterface, ROSEmbodimentInterface, WebAgentEmbodimentInterface } from './phase4-embodiment-interfaces';
-import { TutorialKitECANScheduler } from './ecan-scheduler';
-import { TutorialKitMeshTopology } from './mesh-topology';
+import { ECANScheduler } from './ecan-scheduler';
+import { CognitiveMeshCoordinator } from './mesh-topology';
 import { TutorialKitNeuralSymbolicPipeline } from './neural-symbolic-synthesis';
 import { CognitiveGGMLKernelRegistry } from './ggml-kernels';
 
@@ -83,7 +83,7 @@ export class Phase4TestingFramework {
    */
   private initializeTestingComponents(): void {
     // Create test instances of all components
-    const ecanScheduler = new TutorialKitECANScheduler({
+    const ecanScheduler = new ECANScheduler({
       attentionBank: 100000,
       maxSTI: 1000,
       minSTI: -1000,
@@ -91,7 +91,7 @@ export class Phase4TestingFramework {
       importanceSpreadingRate: 0.1
     });
 
-    const meshTopology = new TutorialKitMeshTopology('test-mesh');
+    const meshTopology = new CognitiveMeshCoordinator('test-mesh');
     const neuralSymbolicPipeline = new TutorialKitNeuralSymbolicPipeline(null as any);
     const kernelRegistry = new CognitiveGGMLKernelRegistry();
 

@@ -175,6 +175,11 @@ export class CognitiveMeshCoordinator {
    * Calculate compatibility between two nodes
    */
   private calculateNodeCompatibility(node1: MeshNode, node2: MeshNode): number {
+    // Defensive check for capabilities
+    if (!node1.capabilities || !node2.capabilities) {
+      return 0;
+    }
+    
     // Check capability overlap
     const sharedCapabilities = node1.capabilities.filter(cap => 
       node2.capabilities.includes(cap)
