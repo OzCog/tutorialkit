@@ -291,13 +291,13 @@ export class MetaCognitiveObserver {
   }
 
   private async calculateMetrics(): Promise<MetaCognitiveMetrics> {
-    const processingStats = this.profiler.getSessionStats();
+    const processingStats = this.profiler.getAllSessions();
     const topology = this.meshCoordinator.getTopology();
     const attentionBank = this.ecanScheduler.getAttentionBank();
 
     // Calculate processing efficiency
     const processingEfficiency = processingStats.length > 0
-      ? processingStats.reduce((sum, stat) => sum + (1 / Math.max(1, stat.avgLatency)), 0) / processingStats.length
+      ? processingStats.reduce((sum, session) => sum + (session.aggregateMetrics?.systemEfficiency || 0), 0) / processingStats.length
       : 0.5;
 
     // Calculate adaptation speed based on recent changes

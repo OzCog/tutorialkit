@@ -570,18 +570,18 @@ export class RecursiveSelfImprovementEngine {
 
   private async applyLocalOptimizations(layer: RecursiveLayer, cycle: SelfImprovementCycle): Promise<void> {
     // Optimize individual kernels and processes
-    const kernels = this.profiler.getSessionStats();
+    const kernels = this.profiler.getAllSessions();
     
-    for (const kernel of kernels.slice(0, 5)) { // Top 5 kernels
-      if (kernel.avgLatency > 50) { // Over 50ms latency
+    for (const session of kernels.slice(0, 5)) { // Top 5 sessions
+      if (session.aggregateMetrics?.averageExecutionTime > 50) { // Over 50ms latency
         // Apply optimization
-        await this.optimizeKernelPerformance(kernel.sessionId);
+        await this.optimizeKernelPerformance(session.sessionId);
         
         // Record improvement (simulated)
         cycle.improvements.push({
           metric: 'kernel-latency',
-          before: kernel.avgLatency,
-          after: kernel.avgLatency * 0.9, // 10% improvement
+          before: session.aggregateMetrics.averageExecutionTime,
+          after: session.aggregateMetrics.averageExecutionTime * 0.9, // 10% improvement
           improvement: 0.1,
           significance: 0.7
         });
