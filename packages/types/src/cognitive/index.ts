@@ -188,3 +188,51 @@ export type {
   EmbodimentFlowchartNode,
   RecursiveEmbodimentPath
 } from './phase4-integration.js';
+
+// Phase 5: Recursive Meta-Cognition & Evolutionary Optimization
+export * from './phase5-meta-cognitive.js';
+export * from './phase5-evolutionary.js';
+export * from './phase5-recursive.js';
+export * from './phase5-integration.js';
+
+// Phase 5 types
+export type {
+  MetaCognitiveMetrics,
+  SelfAnalysisReport,
+  FeedbackLoop,
+  EvolutionaryParameters,
+  CognitiveGenome,
+  EvolutionaryFitness,
+  EvolutionCycle,
+  FitnessLandscape,
+  RecursiveLayer,
+  SelfImprovementCycle,
+  RecursiveOptimizationPlan,
+  MetaLearningMetrics,
+  Phase5SystemConfig,
+  Phase5SystemState,
+  Phase5Metrics,
+  EvolutionaryTrajectory
+} from './phase5-meta-cognitive.js';
+
+export type {
+  EvolutionaryParameters as Phase5EvolutionaryParameters,
+  CognitiveGenome as Phase5CognitiveGenome,
+  EvolutionaryFitness as Phase5EvolutionaryFitness,
+  EvolutionCycle as Phase5EvolutionCycle,
+  FitnessLandscape as Phase5FitnessLandscape
+} from './phase5-evolutionary.js';
+
+export type {
+  RecursiveLayer as Phase5RecursiveLayer,
+  SelfImprovementCycle as Phase5SelfImprovementCycle,
+  RecursiveOptimizationPlan as Phase5RecursiveOptimizationPlan,
+  MetaLearningMetrics as Phase5MetaLearningMetrics
+} from './phase5-recursive.js';
+
+export type {
+  Phase5SystemConfig as Phase5Config,
+  Phase5SystemState as Phase5State,
+  Phase5Metrics as Phase5SystemMetrics,
+  EvolutionaryTrajectory as Phase5EvolutionaryTrajectory
+} from './phase5-integration.js';
