@@ -236,3 +236,38 @@ export type {
   Phase5Metrics as Phase5SystemMetrics,
   EvolutionaryTrajectory as Phase5EvolutionaryTrajectory
 } from './phase5-integration.js';
+
+// Phase 6: Rigorous Testing, Documentation, and Cognitive Unification
+export * from './phase6-testing-protocols.js';
+export * from './phase6-documentation.js';
+export * from './phase6-unification.js';
+export * from './phase6-integration.js';
+
+// Complete Cognitive Architecture Demo and Integration
+export * from './cognitive-architecture-demo.js';
+export * from './simplified-cognitive-demo.js';
+
+// Phase 6 types
+export type {
+  Phase6Results,
+  Phase6Validation,
+  Phase6Performance,
+  Phase6EmergentProperties
+} from './phase6-integration.js';
+
+// Demo types
+export type {
+  CognitiveArchitectureResult,
+  Phase2DemoResult,
+  Phase3DemoResult,
+  IntegrationMetrics,
+  SuccessMetrics,
+  EmergentProperty
+} from './cognitive-architecture-demo.js';
+
+// Simplified demo types
+export type {
+  ImplementationValidation,
+  SuccessMetrics as SimplifiedSuccessMetrics,
+  EmergentProperty as SimplifiedEmergentProperty
+} from './simplified-cognitive-demo.js';
